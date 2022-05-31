@@ -1,0 +1,70 @@
+\documentclass[a4]{article}
+\usepackage{LJMU-API}
+\input{LJMU-API-header}
+
+%edit these to suit:
+\myname{Yan Weiser}
+\mypid{793002}
+\mycourse{Deep Learning in NLP }
+\mytma{Assignment 2}
+
+
+%then do your stuff after the \begin{document} command
+
+\begin{document}
+
+
+\question {\large Dependency Parse Example in Part 3 of the PDF}
+
+The table with the individual steps in the parsing process is given above.
+
+
+\begin{center}
+\begin{table}
+\begin{tabular}{l|l|l|l}
+ Stack & Buffer & New Dependency & Transition \\ \hline
+{[ROOT]} & {[I, parsed, this, sentence, correctly]} &  & Initial Configuration \\
+{[ROOT, I]} & {[parsed, this, sentence, correctly]} &  & SHIFT \\
+{[ROOT, I, parsed]} & {[this, sentence, correctly]} &  & SHIFT \\
+{[ROOT, parsed]} & {[this, sentence, correctly]} & parsed $\implies$ I & LEFT-ARC \\
+{[ROOT, parsed, this]} & {[sentence, correctly]} &  & SHIFT\\
+{[ROOT, parsed, this, sentence]} & {[correctly]} &  & SHIFT\\
+{[ROOT, parsed, sentence]} & {[correctly]} & sentence $\implies$ this & LEFT-ARC \\
+{[ROOT, parsed]} & {[correctly]} & parsed $\implies$ sentence & RIGHT-ARC \\
+{[ROOT, parsed, correctly]} & {[]} &  & SHIFT \\
+{[ROOT, parsed]} & {[]} & parsed $\implies$ correctly & RIGHT-ARC \\
+{[ROOT]} & {[]} & ROOT $\implies$ parsed & RIGHT-ARC 
+
+
+\end{tabular}
+\end{table}
+\end{center}
+
+\question {\large Errors in Dependency Parses (Part 6 of the PDF)}
+
+\textbf{Sentence: }I disembarked and was heading to a wedding fearing my death.
+
+\begin{itemize}
+\item Error type: Verb Phrase Attachement Error
+\item incorrect Dependency: wedding $\implies$ fearing
+\item Correct Dependency: disembarked $\implies$ fearing
+\end{itemize}
+
+\textbf{Sentence: }It makes me want to rush out and rescue people from dilemmas of their own making.
+
+\begin{itemize}
+\item Error type: Coordination Attachment Error 
+\item incorrect Dependency: makes $\implies$ rescue
+\item Correct Dependency: rush $\implies$ rescue
+\end{itemize}
+
+\textbf{Sentence: }It is on loan from a guy named Joe O’Neill in Midland, Texas.
+
+\begin{itemize} 
+\item Error type: Prepositional Phrase Attachment Error
+\item incorrect Dependency: named $\implies$ Midland
+\item Correct Dependency: guy $\implies$ Midland
+\end{itemize}
+
+
+\end{document}
