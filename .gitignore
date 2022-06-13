@@ -1,2 +1,3 @@
-
+*.pyc
 DL-assignment2/hand_in
+*/__pycache__
