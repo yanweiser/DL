@@ -107,13 +107,9 @@ class ParserModel(nn.Module):
         ###     Gather: https://pytorch.org/docs/stable/torch.html#torch.gather
         ###     View: https://pytorch.org/docs/stable/tensors.html#torch.Tensor.view
         ###     Flatten: https://pytorch.org/docs/stable/generated/torch.flatten.html
-
-        x = torch.empty((w.size(dim=0), self.embed_size*self.n_features), dtype=torch.float, device=my_device)
         
-        for i in range(w.size(dim=0)):
-            embs = torch.empty((self.n_features, self.embed_size), device=my_device)
-            embs = torch.index_select(self.embeddings, 0, w[i])
-            x[i] = embs.flatten()
+        x = torch.index_select(self.embeddings, 0, w.reshape(1,-1)[0])
+        x = x.view(w.shape[0], -1)
 
         ### END YOUR CODE
         return x
