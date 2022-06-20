@@ -31,11 +31,11 @@ else:
 
 #--- hyperparameters ---
 N_EPOCHS = 100
-LEARNING_RATE = 3e-4
+LEARNING_RATE = 8e-5
 REPORT_EVERY = 5
-EMBEDDING_DIM = 30
-HIDDEN_DIM = 64
-BATCH_SIZE = 100
+EMBEDDING_DIM = 32
+HIDDEN_DIM = 128
+BATCH_SIZE = 150
 N_LAYERS = 2
 
 
@@ -115,15 +115,16 @@ class RNNModel(nn.Module):
         embeds = self.embed(inputs)
         # Recommendation: use a single input for rnn layer (no special initialization of the hidden layer):
         rnn_out, hidden = self.rnn(embeds)
-        logits = self.decoder(rnn_out[-1].view((inputs[0]),self.hidden_dim))
+        logits = self.decoder(rnn_out[-1].view(len(inputs[0]),self.hidden_dim))
         return F.log_softmax(logits, dim=1)
 
 
 
 # --- auxilary functions ---
 def get_minibatch(minibatchwords, character_map, languages):
-    seq_lens = [get_word_length(word) for word in minibatchwords]
-    sl = max(seq_lens) + 2
+    # seq_lens = [get_word_length(word) for word in minibatchwords]
+    # sl = max(seq_lens) + 2
+    sl = get_word_length(minibatchwords[-1]) + 2
     size = len(minibatchwords) # last batch might be smaller than BATCH_SIZE
 
     mb_x = torch.empty((sl,size), dtype=torch.long, device=my_device)
