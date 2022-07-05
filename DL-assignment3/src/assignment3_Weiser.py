@@ -124,7 +124,7 @@ class RNNModel(nn.Module):
 def get_minibatch(minibatchwords, character_map, languages):
     # seq_lens = [get_word_length(word) for word in minibatchwords]
     # sl = max(seq_lens) + 2
-    sl = get_word_length(minibatchwords[-1]) + 2
+    sl = get_word_length(minibatchwords[-1]) + 2 # the last word is guaranteed to be the longest one in the minibatch
     size = len(minibatchwords) # last batch might be smaller than BATCH_SIZE
 
     mb_x = torch.empty((sl,size), dtype=torch.long, device=my_device)

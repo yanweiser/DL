@@ -1,0 +1,5 @@
+batch_size: 512
+mlp_hidden: 256
+conv_dim: 50
+epochs: 100
+lr: 0.0003
