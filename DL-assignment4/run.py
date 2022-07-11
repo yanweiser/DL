@@ -8,7 +8,7 @@ import time
 from utils import Dataset
 from model import NLINet
 from torch.utils.data import DataLoader
-from torch.optim import Adam
+from torch.optim import AdamW
 from tqdm import tqdm
 from time import sleep
 
@@ -102,7 +102,7 @@ class MainExec(object):
         net = NLINet(self.cfgs, pretrained_emb, token_size, label_size, self.device)
         net = net.to(self.device)
         loss_fn = torch.nn.CrossEntropyLoss()
-        optimizer = Adam(params=net.parameters(), lr=self.cfgs['lr'])
+        optimizer = AdamW(params=net.parameters(), lr=self.cfgs['lr'])
 
         dataloader = DataLoader(data, batch_size=self.cfgs['batch_size'], shuffle=True)
 
@@ -232,7 +232,7 @@ class MainExec(object):
         net = NLINet(self.cfgs, pretrained_emb, token_size, label_size, self.device)
         net = net.to(self.device)
         loss_fn = torch.nn.CrossEntropyLoss()
-        optimizer = Adam(params=net.parameters(), lr=self.cfgs['lr'])
+        optimizer = AdamW(params=net.parameters(), lr=self.cfgs['lr'])
 
         dataloader = DataLoader(data, batch_size=self.cfgs['batch_size'], shuffle=True)
 

@@ -47,6 +47,7 @@ class NLINet(nn.Module):
             nn.ReLU(),
             nn.Linear(configs['mlp_hidden'], label_size)
         )
+        self.dropout = nn.Dropout(p = 0.1)
 
     def forward(self, premise, hypothesis):
         """
@@ -63,6 +64,6 @@ class NLINet(nn.Module):
             encoding_premise * encoding_hypo),
             dim = 1
             )
-        ### Dropout Layer to be added ###
-        out = self.decoder(encoding_comb)
+        logits = self.decoder(encoding_comb)
+        out = self.dropout(logits)
         return out
