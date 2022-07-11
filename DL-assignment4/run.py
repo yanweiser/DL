@@ -200,9 +200,6 @@ class MainExec(object):
 
         preds = torch.argmax(preds, dim=1)
 
-        print(preds.shape)
-        print(batch[2].view(-1).shape)
-
         sames = torch.eq(preds, batch[2].view(-1).to(self.device))
 
         print('Accuracy = {:.4f}'.format(torch.sum(sames, dim=0)/len(sames)))
